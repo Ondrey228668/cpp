@@ -1,0 +1,179 @@
+1)
+#include <iostream>
+#include<vector>
+using namespace std;
+
+vector<int> int* findmaxcross(int arr[], int left, int right, int mid)
+{
+	int leftsum = INT_MIN;
+	int sum1 = 0;
+	int sum2 = 0;
+	int maxleft;
+	int maxright;
+	int rightsum = INT_MIN;
+
+	for (int i = mid; i >= left; i--)
+	{
+		sum1 = sum1 + arr[i];
+		if (sum1 > leftsum)
+		{
+			leftsum = sum1;
+			maxleft = i;
+		}
+	}
+
+	for (int j = mid + 1; j <= right; j++)
+	{
+		sum2 = sum2 + arr[j];
+		if (sum2 > rightsum)
+		{
+			rightsum = sum2;
+			maxright = j;
+		}
+	}
+	
+vector<int> v; 
+v.push_back(maxLeft); 
+v.push_back(maxRight); 
+v.push_back(leftSum + rightSum);
+return v;
+
+};
+
+2
+#include <iostream>
+#include<vector>
+using namespace std;
+
+vector<int> int* findmaxcross(int arr[], int left, int right, int mid)
+{
+	int leftsum = INT_MIN;
+	int sum1 = 0;
+	int sum2 = 0;
+	int maxleft;
+	int maxright;
+	int rightsum = INT_MIN;
+
+	for (int i = mid; i >= left; i--)
+	{
+		sum1 = sum1 + arr[i];
+		if (sum1 > leftsum)
+		{
+			leftsum = sum1;
+			maxleft = i;
+		}
+	}
+
+	for (int j = mid + 1; j <= right; j++)
+	{
+		sum2 = sum2 + arr[j];
+		if (sum2 > rightsum)
+		{
+			rightsum = sum2;
+			maxright = j;
+		}
+	}
+	
+vector<int> v; 
+v.push_back(maxLeft); 
+v.push_back(maxRight); 
+v.push_back(leftSum + rightSum);
+return v;
+
+};
+
+vector<int>  findarr(int arr[], int left, int right)
+{
+	int mid = (left + right) / 2;
+	if (left == right)
+	{
+		vector<int> arrstop = { left, right, arr[left] };
+              return arrstop;
+	}
+	else {
+
+		vector<int> maxcrossingsub = findmaxcross(arr, left, right, mid);
+		vector<int> leftmaxsub = findarr(arr, left, mid);
+		vector<int> rightmaxsub = findarr(arr, mid + 1, right);
+
+		if ((maxcrossingsub[2] > leftmaxsub[2]) && (maxcrossingsub[2] > rightmaxsub[2]))
+		{
+			return maxcrossingsub;
+		}
+
+		else if ((leftmaxsub[2] > maxcrossingsub[2]) && (leftmaxsub[2] > maxcrossingsub[2]))
+		{
+			return leftmaxsub;
+		}
+		else if ((rightmaxsub[2] > maxcrossingsub[2]) && (rightmaxsub[2] > rightmaxsub[2]))
+		{
+			return rightmaxsub;
+		}
+
+	}
+
+}
+
+int main()
+{
+	int arr[] = {7 , 2, 3, 43, 6 ,2, 5 };
+	cout << findarr(arr, 0, 7).at(2)<< " ";
+}
+
+
+Problem 4.1-4	
+vector<int>  findarr(int arr[], int left, int right)
+{
+bool a = false;
+for (int i = left; i <= right; i++) {
+		if (arr[i] > 0) {
+			a = true;
+			break;
+		}
+}
+	
+	int mid = (left + right) / 2;
+	if (left == right)
+	{
+		vector<int> arrstop = { left, right, arr[left] };
+              return arrstop;
+	}
+        else if(a == true){
+
+		vector<int> maxcrossingsub = findmaxcross(arr, left, right, mid);
+		vector<int> leftmaxsub = findarr(arr, left, mid);
+		vector<int> rightmaxsub = findarr(arr, mid + 1, right);
+
+		if ((maxcrossingsub[2] > leftmaxsub[2]) && (maxcrossingsub[2] > rightmaxsub[2]))
+		{
+                        cout << "Returning Cross" << endl;
+                        cout << MaxCrossingSubArr.at(2) << endl;			
+                        return maxcrossingsub;
+		}
+
+		else if ((leftmaxsub[2] > maxcrossingsub[2]) && (leftmaxsub[2] > maxcrossingsub[2]))
+		{
+                        cout << "Returning Left" << endl;
+			cout << MaxLeftSubArr.at(2) << endl;
+			return leftmaxsub;
+		}
+		else if ((rightmaxsub[2] > maxcrossingsub[2]) && (rightmaxsub[2] > rightmaxsub[2]))
+		{
+                        cout << "Returning Right" << endl;
+			cout << MaxRightSubArr.at(2) << endl;			
+                        return rightmaxsub;
+		}
+
+	}
+
+};
+	
+
+
+
+
+
+
+
+
+
