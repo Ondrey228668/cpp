@@ -1,0 +1,273 @@
+#include <iostream>
+#include<string>
+
+using namespace std;
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+template<typename T>
+
+//Linked List 
+
+
+class SingleList {
+    class Node {
+    public: T data; Node* next;int key;Node* last; 
+          Node(T data = T(), Node* next = nullptr,Node* last = nullptr) {
+              this->data = data;
+              this->next = next;
+              this->last=last;
+          }
+        
+    };
+    
+    int size;
+    Node* head;
+    Node* temp ;
+public:
+    SingleList() {
+        size = 0;
+        head = nullptr;
+    }
+    int length() {
+        return size;
+    }
+    void push_front(T data) {//O(1)
+        if (head == nullptr)
+            head = new Node(data);
+        else {
+            Node* temp = new Node(data, head);
+            head = temp;
+        }
+        size++;
+    }
+    bool check(){
+         if (head == nullptr)
+         return true  ;
+         else return false  ;
+    }
+    void AddNodeEnd(T data)
+{
+    Node* nd=new Node(data,temp);
+    temp=nd;
+    if (head)
+    {
+        Node* current=head;
+        while(current->next)
+            current=current->next;
+            current->last=nd;
+    }
+    else head=nd;
+    Node* counter=head;
+    int i=0;
+    while (counter)
+    {
+        counter->key=++i;
+        counter=counter->next;
+    }
+}
+
+void deleteNodeEnd()
+{
+    if (temp)
+    {
+        Node* current=temp;
+        current=current->last;
+        delete current->next;
+        current->next=NULL;
+    }
+    else
+   cout<<"list is empty";
+}
+    void pop_front() {
+        if (size <= 0)
+            throw out_of_range("");
+        else {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+        size--;
+    }
+    void clearAll() {
+        while (size != 0)
+            pop_front();
+        cout << "List is empty, size = " << size << endl;
+    }
+    
+    void add(T element, int index){
+        Node* current;
+    current=head;
+    while(current)
+    {
+        if (current->key==index)
+            current->data;
+        current=current->next;
+    }
+       head = new Node(element);
+       Node* temp = new Node(element, current);
+            current = temp;
+            size++;
+    }
+    int find(int k) const
+{
+    Node* current;
+    current=head;
+    while(current)
+    {
+        if (current->key==k)
+            return current->data;
+        current=current->next;
+    }
+}
+    
+       void set(T data,int index)
+	{
+		if (index == 0)
+		{
+			push_front(data);
+		}
+		else {
+			Node *last = this->head;
+			for (int i = 0; i < index - 1; i++)
+			{
+				last = last->next;
+			}
+			Node * newNode = new Node(data, last->next);
+			last->next = newNode;
+			size++;
+		}}
+		
+
+
+
+	
+	void remov(int index)
+	{
+		if (index == 0)
+		{
+			pop_front();
+		}
+		if (index == size - 1)
+		{
+			deleteNodeEnd();
+		}
+		else {
+			Node* temp = head;
+			Node* last = head;
+			for (int i = 0; i < index; i++)
+			{
+				last = temp;
+				temp = temp->next;
+			}
+			last->next = temp->next;
+			delete temp;
+			size--;
+			
+		}
+	}
+    T operator [] (int index) {
+        T res = T();
+        int counter = 0;
+        Node* cur = head;
+        while (cur != nullptr) {
+            if (counter == index) {
+                res = cur->data;
+                break;
+            }
+            cur = cur->next;
+            counter++;
+        }
+        return res;
+    }
+    bool operator == (SingleList<T> another){
+        for(int i = 0 ; i < size ; i ++ ){
+            if(find(i)!= another.find(i)){
+                return false ; 
+            }
+            else return true ;
+        }
+    }
+    bool operator != (SingleList<T> another){
+        for(int i = 0 ; i < size ; i ++ ){
+            if(find(i)!= another.find(i)){
+                return true  ; 
+            }
+            else return false  ;
+        }
+    }
+    class Iterator
+  {
+    Node *current;
+  public:
+      Iterator (Node * temp):current (temp)
+    {
+    }
+
+    T & operator ++ ()
+    {
+      current = current->next;
+      return current->data;
+
+    }
+    T& operator *() {
+            return current->data; 
+        }
+    bool operator != (const Iterator & iter)
+    {
+      return current != iter.current;
+    }
+  };
+  
+ 
+    
+    ~SingleList() {
+        clearAll();
+    }
+};
+int main()
+{
+    SingleList<int> l;
+  char w[100];
+  int t , n ;
+  cin >> n ; 
+  for(int i = 0 ; i < n ; i++ ){
+      cin >> t ;
+      for(int j = 0 ; j < t ; j ++ ){
+          cin >> w[j];
+          if(w[j]=='a'){
+              int a ; 
+              cin >> a ; 
+              l.AddNodeEnd(a);
+          }
+          else if(w[j]=='b'){
+              if(l.check())cout << "-1 ";
+              else 
+             cout << l.find(0) << " ";
+              l.pop_front();
+          }
+          else if(w[j]=='c'){
+              cout << l.length() << " ";
+          }
+          else if(w[j]=='d'){
+              if(l.check())cout << "-1 ";
+              else 
+              cout << l.find(0) <<" ";
+          }
+          else if(w[j]=='e'){
+              cout << l.length()<< " ";
+          }
+      }
+      
+  }
+  
+  
+   /*char a = 'a';
+  char *p;
+  p = &a ; 
+  p++ ; 
+   cout << *p; 
+*/
+    return 0;
+}
